@@ -2,7 +2,6 @@
 cache/
 out/
 
-# Commonly ignored directories
 .logs/
 .ignore/
 
@@ -16,5 +15,6 @@ docs/
 
 # Dotenv file
 .env
+
 .env.*
 !.env.example
