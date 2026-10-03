@@ -4,12 +4,14 @@ pragma solidity ^0.8.18;
 
 import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../src/FundMe.sol";
+import {DeployFundMe} from "../script/DeployFundMe.s.sol";
 
 contract FundMeTest is Test {
     FundMe public fundMe;
 
     function setUp() external {
-        fundMe = new FundMe();
+        DeployFundMe deployFundMe = new DeployFundMe();
+        fundMe = deployFundMe.run();
     }
 
     function testMinimumDollarIsFive() public view {
@@ -17,7 +19,7 @@ contract FundMeTest is Test {
     }
 
     function testOwnerIsMsgSender() public view {
-        assertEq(fundMe.i_owner(), address(this));
+        assertEq(fundMe.i_owner(), msg.sender);
     }
 
     function testPriceFeedVersionIsAcurrate() public view {
@@ -25,7 +27,6 @@ contract FundMeTest is Test {
         assertEq(version, 4);
     }
 }
-
 /*Ok in this contract what is hapenning is first we are importing differnt contracts and test,
 console from Test contract then did inheritance by doing is so that it can use test contract.
 Then created a fundMe variable then did setup which required for testing and it executes first
